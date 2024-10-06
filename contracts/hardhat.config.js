@@ -26,7 +26,7 @@ module.exports = {
   },
     etherscan: {
         apiKey: {
-            bttc_testnet: '5ITUQA681SDC1Z79KBQDXJQUSVNXG3WSMN'
+            bttc_testnet: 'C324VIYRWJDJ8WCI22WX767HGX8XWKT5VU'
         },
         customChains: [
             {

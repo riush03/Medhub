@@ -41,8 +41,8 @@ const Auth = ({
                       <Card
                         handleClick={address ? setAddPatient : connectMetaMask}
                         title={"Patient Registration"}
-                        patient={"100k +"}
-                        number={"40"}
+                        patient={""}
+                        number={""}
                         iconOne={<HeroCard1 />}
                         iconTwo={<HeroCard2 />}
                         classStyle={"bg-success"}
@@ -50,8 +50,8 @@ const Auth = ({
                       <Card
                         handleClick={address ? setAddDocotr : connectMetaMask}
                         title={"Doctor Registration"}
-                        patient={"100 +"}
-                        number={"14"}
+                        patient={""}
+                        number={""}
                         iconOne={<HeroCard1 />}
                         iconTwo={<HeroCard4 />}
                         classStyle={"bg-danger "}

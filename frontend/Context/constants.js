@@ -3,7 +3,8 @@ import Web3Modal from "web3modal";
 import OpenAI from "openai";
 import axios from "axios";
 
-import Healthcare from "./Healthcare.json";
+import Medhub from "./Medhub.json"
+import { namehash } from "ethers/lib/utils";
 
 //OPEN AI
 const openai = new OpenAI({
@@ -11,7 +12,7 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-const HEALTH_CARE_ABI = Healthcare.abi;
+const MED_HUB_ABI = Medhub.abi;
 const HEALTH_CARE_ADDRESS = process.env.NEXT_PUBLIC_HEALTH_CARE;
 
 //ADMIN
@@ -24,92 +25,38 @@ const PINATA_SECRECT_KEY = process.env.NEXT_PUBLIC_PINATA_SECRECT_KEY;
 
 //NETWORK
 const networks = {
-  holesky: {
-    chainId: `0x${Number(17000).toString(16)}`,
-    chainName: "Holesky",
+  testnet:{
+    chainId:'0x405',
+    chainName:"BitTorrent Chain Donau",
     nativeCurrency: {
-      name: "ETH",
-      symbol: "ETH",
+      name:"BitTorrent Chain Donau",
+      symbol:"BTT",
       decimals: 18,
     },
-    rpcUrls: ["https://rpc.ankr.com/eth_holesky"],
-    blockExplorerUrls: ["https://holesky.etherscan.io/"],
-  },
-  sepolia: {
-    chainId: `0x${Number(11155111).toString(16)}`,
-    chainName: "Sepolia",
-    nativeCurrency: {
-      name: "SepoliaETH",
-      symbol: "SepoliaETH",
-      decimals: 18,
-    },
-    rpcUrls: ["https://sepolia.infura.io/v3/"],
-    blockExplorerUrls: ["https://sepolia.etherscan.io"],
-  },
-  polygon_amoy: {
-    chainId: `0x${Number(80002).toString(16)}`,
-    chainName: "Polygon Amoy",
-    nativeCurrency: {
-      name: "MATIC",
-      symbol: "MATIC",
-      decimals: 18,
-    },
-    rpcUrls: ["https://rpc.ankr.com/polygon_amoy"],
-    blockExplorerUrls: ["https://www.oklink.com/amoy"],
-  },
-  polygon: {
-    chainId: `0x${Number(137).toString(16)}`,
-    chainName: "Polygon Mainnet",
-    nativeCurrency: {
-      name: "MATIC",
-      symbol: "MATIC",
-      decimals: 18,
-    },
-    rpcUrls: ["https://rpc.ankr.com/polygon"],
-    blockExplorerUrls: ["https://polygonscan.com/"],
+    rpcUrls:  ["https://pre-rpc.bt.io"] ,
+    blockExplorerUrls: ["https://testnet.bttcscan.com/"],
+    testnet: true,
   },
   bsc: {
-    chainId: `0x${Number(56).toString(16)}`,
-    chainName: "Binance Smart Chain Mainnet",
+    chainId: 56,
+    chainName: "Binance Smart Chain",
     nativeCurrency: {
       name: "Binance Chain Native Token",
       symbol: "BNB",
       decimals: 18,
     },
-    rpcUrls: ["https://rpc.ankr.com/bsc"],
+    rpcUrls: ["https://bsc-dataseed.binance.org"],
     blockExplorerUrls: ["https://bscscan.com"],
   },
-  base_mainnet: {
-    chainId: `0x${Number(8453).toString(16)}`,
-    chainName: "Base Mainnet",
+  btt_mainet: {
+    chainId:199,
+    chainName: "BitTorrent Chain Mainnet",
     nativeCurrency: {
-      name: "ETH",
-      symbol: "ETH",
+      name: "BTT",
+      symbol: "BTT",
       decimals: 18,
     },
-    rpcUrls: ["https://mainnet.base.org/"],
-    blockExplorerUrls: ["https://bscscan.com"],
-  },
-  base_sepolia: {
-    chainId: `0x${Number(84532).toString(16)}`,
-    chainName: "Base Sepolia",
-    nativeCurrency: {
-      name: "ETH",
-      symbol: "ETH",
-      decimals: 18,
-    },
-    rpcUrls: ["https://sepolia.base.org"],
-    blockExplorerUrls: ["https://bscscan.com"],
-  },
-  localhost: {
-    chainId: `0x${Number(31337).toString(16)}`,
-    chainName: "localhost",
-    nativeCurrency: {
-      name: "GO",
-      symbol: "GO",
-      decimals: 18,
-    },
-    rpcUrls: ["http://127.0.0.1:8545/"],
+    rpcUrls: ["https://rpc.bt.io"],
     blockExplorerUrls: ["https://bscscan.com"],
   },
 };
@@ -130,6 +77,8 @@ const changeNetwork = async ({ networkName }) => {
     console.log(err.message);
   }
 };
+
+
 
 export const HANDLE_NETWORK_SWITCH = async () => {
   const networkName = NETWORK;
@@ -171,7 +120,7 @@ export const HEALTH_CARE_CONTARCT = async () => {
   const provider = new ethers.providers.Web3Provider(connection);
   const signer = provider.getSigner();
 
-  const contract = FETCH_CONTRACT(HEALTH_CARE_ADDRESS, HEALTH_CARE_ABI, signer);
+  const contract = FETCH_CONTRACT(HEALTH_CARE_ADDRESS, MED_HUB_ABI, signer);
   return contract;
 };
 

@@ -8,7 +8,7 @@ const NavHeader = () => {
     <div className="nav-header">
       <a href="/" className="brand-logo">
         <Nav1 />
-        <Nav2 />
+        <span className="font-light font-bold">Medhub</span>
       </a>
       <div className="nav-control">
         <div className="hamburger">
